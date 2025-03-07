@@ -1,0 +1,3 @@
+./adb shell pm revoke --user 0 com.example.lab1 android.permission.CAMERA
+./adb shell pm revoke --user 0 com.example.lab1 android.permission.ACCESS_FINE_LOCATION
+./adb shell pm revoke --user 0 com.example.lab1 android.permission.READ_CONTACTS
