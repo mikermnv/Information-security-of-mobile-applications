@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using lab2.ApkTools;
 using lab2.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -7,17 +7,22 @@ namespace lab2.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Download(string secret)
+        [HttpPost]
+        public IActionResult Download([FromForm] string secret = "")
         {
+            if (secret.Length > 10000)
+            {
+                ModelState.AddModelError("secret", "The secret must not exceed 10,000 characters.");
+                return View("Index");
+            }
             var originalApkPath = Path.Combine(Directory.GetCurrentDirectory(), "Apk", "original.apk");
             var stream = ApkModifier.InjectSecret(originalApkPath, secret);
-
             return File(stream, "application/vnd.android.package-archive", "Secret.apk");
         }
 

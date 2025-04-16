@@ -13,7 +13,8 @@
     <h2 class="mb-4 text-center">Text to embed (Secret)</h2>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <form asp-action="Download" method="get">
+            <form asp-action="Download" method="post">
+                <span class="text-danger">@Html.ValidationMessage("secret")</span>
                 <div class="mb-3">
                     <label for="secret" class="form-label">Enter a secret (up to 10,000 characters)</label>
                     <textarea id="secret"
